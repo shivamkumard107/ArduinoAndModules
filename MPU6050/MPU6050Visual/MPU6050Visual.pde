@@ -13,12 +13,26 @@ String data="";
 float roll, pitch,yaw;
 
 void setup() {
-  size (2560, 1440, P3D);
-  myPort = new Serial(this, "COM6", 19200); // starts the serial communication
+  size (960,720, P3D);
+  myPort = new Serial(this, "/dev/ttyACM1", 115200); // starts the serial communication
   myPort.bufferUntil('\n');
 }
 
 void draw() {
+  //System.out.println(data + "\n");
+  if (data != null) {
+    data = trim(data);
+    // split the string at "/"
+    String items[] = split(data, '\t');
+    System.out.println("item0: "+ items[0]);
+    
+    if (items.length > 1) {
+      //--- Roll,Pitch in degrees
+      roll = float(items[0]);
+      pitch = float(items[1]);
+      yaw = float(items[2]);
+    }
+  }
   translate(width/2, height/2, 0);
   background(233);
   textSize(22);
@@ -45,18 +59,19 @@ void draw() {
 void serialEvent (Serial myPort) { 
   // reads the data from the Serial Port up to the character '.' and puts it into the String variable "data".
   data = myPort.readStringUntil('\n');
-
+  //System.out.println("Hello Console \n");
   // if you got any bytes other than the linefeed:
+  //System.out.println("2. Yaw:"+yaw+" pitch:"+pitch+" roll: "+roll+"\n");
   if (data != null) {
     data = trim(data);
+    
     // split the string at "/"
     String items[] = split(data, '/');
     if (items.length > 1) {
-
       //--- Roll,Pitch in degrees
       roll = float(items[0]);
       pitch = float(items[1]);
       yaw = float(items[2]);
-    }
+  }
   }
 }

@@ -1,4 +1,4 @@
-=> This is the code of HowtoMechatronics.com 
+=> Code used is on HowtoMechatronics.com 
 
 => Code is running correctly but the yaw value keeps on increasing so it not stable at one position
 
