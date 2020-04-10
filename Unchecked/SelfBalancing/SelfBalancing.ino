@@ -11,6 +11,9 @@
 #include "MPU6050_6Axis_MotionApps20.h" //https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050
 
 MPU6050 mpu;
+// defines pins numbers
+const int stepPin = 3; 
+const int dirPin = 4; 
 
 // MPU control/status vars
 bool dmpReady = false;  // set true if DMP init was successful
@@ -176,27 +179,26 @@ void loop() {
 
 void Forward() //Code to rotate the wheel forward 
 {
-    analogWrite(6,output);
-    analogWrite(9,0);
-    analogWrite(10,output);
-    analogWrite(11,0);
+    digitalWrite(dirPin,HIGH); 
+    digitalWrite(stepPin,HIGH); 
+    delayMicroseconds(500); 
+    digitalWrite(stepPin,LOW); 
+    delayMicroseconds(500); 
     Serial.print("F"); //Debugging information 
 }
 
 void Reverse() //Code to rotate the wheel Backward  
 {
-    analogWrite(6,0);
-    analogWrite(9,output*-1);
-    analogWrite(10,0);
-    analogWrite(11,output*-1); 
+    digitalWrite(dirPin,LOW);
+    digitalWrite(stepPin,HIGH);
+    delayMicroseconds(500);
+    digitalWrite(stepPin,LOW);
+    delayMicroseconds(500);
     Serial.print("R");
 }
 
 void Stop() //Code to stop both the wheels
 {
-    analogWrite(6,0);
-    analogWrite(9,0);
-    analogWrite(10,0);
-    analogWrite(11,0); 
+    digitalWrite(stepPin,LOW);
     Serial.print("S");
 }
