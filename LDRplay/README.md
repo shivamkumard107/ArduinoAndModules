@@ -1,4 +1,4 @@
-I was fun playing the T rex dinosaur game with the light dependant resistor and servo motor
+It was fun playing the T rex dinosaur game with the light dependant resistor and servo motor
 
 - T rex Game: https://elgoog.im/t-rex/
 
